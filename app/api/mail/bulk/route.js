@@ -123,6 +123,9 @@ export async function POST(req) {
             service: 'gmail',
             auth: {
                 user: "newletter.platform@gmail.com",
+
+
+                // add to env marakanda
                 pass: "uckhxzqfhbgoxhwq"
             }
         });
@@ -141,7 +144,6 @@ export async function POST(req) {
                 .replace('{{/each}}', '')
         };
 
-        // Send email
         await transporter.sendMail(mailOptions);
 
         return NextResponse.json({ success: true, message: 'Email sent successfully' });
