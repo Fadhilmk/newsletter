@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { auth } from "../firebase";
+import { auth, db} from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
+import { collection, addDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const router = useRouter();
@@ -25,7 +26,13 @@ const SignUp = () => {
         email,
         password
       );
+      console.log(userCredential);
       await updateProfile(userCredential.user, { displayName: username });
+      await addDoc(collection(db, "users"), {
+        username,
+        email
+      });
+
       router.push("/signin");
     } catch (error) {
       setError(error.message);
@@ -35,8 +42,8 @@ const SignUp = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-white">
       <div className="max-w-md w-full space-y-8 border border-gray-200 rounded-md shadow-md p-8">
-      <div className="text-center">
-        <h1 className="text-3xl font-extrabold text-gray-900">News Letter</h1>
+        <div className="text-center">
+          <h1 className="text-3xl font-extrabold text-gray-900">News Letter</h1>
           <p className="mt-2 text-sm text-gray-600">Create a new account</p>
         </div>
         <form onSubmit={handleSignUp} className="space-y-6">
@@ -131,9 +138,12 @@ const SignUp = () => {
           </div>
         </form>
         <div className="text-center">
-        <p className="mt-2 text-sm text-gray-600">
+          <p className="mt-2 text-sm text-gray-600">
             Already have an account?{" "}
-            <a href="/signin" className="font-medium text-indigo-600 hover:text-indigo-400">
+            <a
+              href="/signin"
+              className="font-medium text-indigo-600 hover:text-indigo-400"
+            >
               Sign In
             </a>
           </p>
