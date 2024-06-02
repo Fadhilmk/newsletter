@@ -1,30 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-type RequestBody = {
-    author: string;
-    buttons: string[];
-    paragraph: string;
-    socialLinks: string[];
-    imageURL: string;
-};
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req) {
     try {
-        const body: RequestBody = await req.json();
+        const body = await req.json();
         const { author, buttons, paragraph, socialLinks, imageURL } = body;
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: "",
-                pass: ""
+                user: "8590143232a@gmail.com",
+                pass: "8590143232"
             }
         });
 
         const mailOptions = {
-            from: "",
-            to: '',
+            from: "8590143232a@gmail.com",
+            to: 'hadhirasal22@gmail.com',
             subject: 'Email Subject',
             html: `
                 <p>${paragraph}</p>
