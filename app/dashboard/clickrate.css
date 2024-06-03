@@ -1,0 +1,38 @@
+
+.box-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+   
+  }
+  .box {
+    height: 130px;
+    width: 230px;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 30, 87, 0.751);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+
+  }
+  .box:hover {
+    transform: scale(1.08);
+  }
+  .count {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 200;
+   
+  }
+  
+  .title {
+    font-size: 16px;
+   
+  }
+  .click_image{
+    height: 60%;
+  }
