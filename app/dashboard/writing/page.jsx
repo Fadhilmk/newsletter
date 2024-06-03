@@ -8,30 +8,106 @@ import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+const addImage = async (file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+
+  try {
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to upload image");
+    }
+
+    const data = await response.json();
+    console.log("Image added successfully", data);
+  } catch (error) {
+    console.error("Error uploading image:", error.message);
+  }
+};
 
 const WritingPage = () => {
-  const [age, setAge] = React.useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [formData, setFormData] = useState({
+    title: "",
+    subTitle: "",
+    buttonURL: "",
+    buttonContent: "",
+    content: "",
+  });
+  const [open, setOpen] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
   };
 
-  const categories = [
-    "science",
-    "sports",
-    "business",
-    "politics",
-    "entertainment",
-    "technology",
-    "world",
-    "all",
-  ];
+  const handleUploadClick = () => {
+    if (selectedFile) {
+      addImage(selectedFile);
+    } else {
+      alert("Please select a file first");
+    }
+  };
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const submitFormData = async (formData) => {
+    try {
+      const response = await fetch("/api/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form data");
+      }
+
+      const data = await response.json();
+      console.log("Form data submitted successfully", data);
+    } catch (error) {
+      console.error("Error submitting form data:", error.message);
+    }
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleSubmitClick = () => {
+    submitFormData(formData);
+    if (selectedFile) {
+      addImage(selectedFile);
+    } 
+    setOpen(true);
+    console.log(formData);
+    console.log(selectedFile);
+  };
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
+  const subscriberSubmitClick = ()=>{
+
+  }
   return (
     <Container>
       <React.Fragment>
@@ -49,8 +125,24 @@ const WritingPage = () => {
               spacing={3}
               sx={{ display: "flex", flexDirection: "column" }}
             >
-              <Grid  sx={{display:"flex",flexWrap:"wrap", flexDirection:"row",padding:"10px", justifyContent:"space-between", gap:"15px 0"}} >
-                <Grid item xs={12} sm={5} lg={6} md={5} order={{ xs: 1, sm: 'initial' }}>
+              <Grid
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  flexDirection: "row",
+                  padding: "10px",
+                  justifyContent: "space-between",
+                  gap: "15px 0",
+                }}
+              >
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={6}
+                  md={5}
+                  order={{ xs: 1, sm: "initial" }}
+                >
                   <InputLabel
                     sx={{
                       display: "flex",
@@ -60,7 +152,14 @@ const WritingPage = () => {
                     Title
                   </InputLabel>
                 </Grid>
-                <Grid item xs={12} sm={5} lg={6} md={5} order={{ xs: 3, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={6}
+                  md={5}
+                  order={{ xs: 3, sm: "initial" }}
+                >
                   <InputLabel
                     sx={{
                       display: "flex",
@@ -70,9 +169,15 @@ const WritingPage = () => {
                     Sub Title
                   </InputLabel>
                 </Grid>
-                
 
-                <Grid item xs={12} sm={5} lg={5} md={5} order={{ xs: 2, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={5}
+                  md={5}
+                  order={{ xs: 2, sm: "initial" }}
+                >
                   <TextField
                     required
                     id="title"
@@ -82,24 +187,41 @@ const WritingPage = () => {
                     fullWidth
                     autoComplete="off"
                     variant="outlined"
-                    
+                    value={formData.title}
+                    onChange={handleInputChange}
                   />
                 </Grid>
 
-                <Grid item xs={12} sm={5} lg={6} md={5} order={{ xs: 4, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={6}
+                  md={5}
+                  order={{ xs: 4, sm: "initial" }}
+                >
                   <TextField
                     required
-                    id="title"
-                    name="title"
+                    id="subTitle"
+                    name="subTitle"
                     label="Sub Title"
                     fullWidth
                     size="small"
                     autoComplete="off"
                     variant="outlined"
+                    value={formData.subTitle}
+                    onChange={handleInputChange}
                   />
                 </Grid>
 
-                <Grid item xs={12} sm={5} lg={6} md={5} order={{ xs: 5, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={6}
+                  md={5}
+                  order={{ xs: 5, sm: "initial" }}
+                >
                   <InputLabel
                     sx={{
                       display: "flex",
@@ -109,7 +231,14 @@ const WritingPage = () => {
                     Button URL
                   </InputLabel>
                 </Grid>
-                <Grid item xs={12} sm={5} lg={6} md={5} order={{ xs: 7, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={6}
+                  md={5}
+                  order={{ xs: 7, sm: "initial" }}
+                >
                   <InputLabel
                     sx={{
                       display: "flex",
@@ -119,32 +248,48 @@ const WritingPage = () => {
                     Button Content
                   </InputLabel>
                 </Grid>
-                
 
-                <Grid item xs={12} sm={5} lg={5} md={5} order={{ xs: 6, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={5}
+                  md={5}
+                  order={{ xs: 6, sm: "initial" }}
+                >
                   <TextField
                     required
-                    id="title"
-                    name="title"
+                    id="buttonURL"
+                    name="buttonURL"
                     label="Button URL"
                     size="small"
                     fullWidth
                     autoComplete="off"
                     variant="outlined"
-                    
+                    value={formData.buttonURL}
+                    onChange={handleInputChange}
                   />
                 </Grid>
 
-                <Grid item xs={12} sm={5} lg={6} md={5} order={{ xs: 8, sm: 'initial' }}>
+                <Grid
+                  item
+                  xs={12}
+                  sm={5}
+                  lg={6}
+                  md={5}
+                  order={{ xs: 8, sm: "initial" }}
+                >
                   <TextField
                     required
-                    id="title"
-                    name="title"
+                    id="buttonContent"
+                    name="buttonContent"
                     label="Button Content"
                     fullWidth
                     size="small"
                     autoComplete="off"
                     variant="outlined"
+                    value={formData.buttonContent}
+                    onChange={handleInputChange}
                   />
                 </Grid>
               </Grid>
@@ -152,95 +297,25 @@ const WritingPage = () => {
                 <InputLabel
                   sx={{
                     display: "flex",
-                    justifyContent: "center",
                     fontWeight: 700,
                   }}
                 >
                   Content
                 </InputLabel>
               </Grid>
-              <Grid item xs={12} sm={10}>
+              <Grid item xs={12} sm={10} lg={12}>
                 <TextField
-                  id="outlined-multiline-static"
+                  id="content"
+                  name="content"
                   label="Content"
                   multiline
                   fullWidth
-                  rows={4}
+                  rows={6}
+                  value={formData.content}
+                  onChange={handleInputChange}
                 />
               </Grid>
-              <Grid item xs={12} sm={2}>
-                <InputLabel
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: 700,
-                  }}
-                >
-                  URL
-                </InputLabel>
-              </Grid>
-              <Grid item xs={12} sm={10}>
-                <TextField
-                  required
-                  id="url"
-                  name="url"
-                  label="URL"
-                  fullWidth
-                  size="small"
-                  autoComplete="off"
-                  variant="outlined"
-                />
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <InputLabel
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: 700,
-                  }}
-                >
-                  Category
-                </InputLabel>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <FormControl fullWidth size="small">
-                  <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={age}
-                    label="Age"
-                    onChange={handleChange}
-                  >
-                    {categories.map((item) => (
-                      <MenuItem value={item}>{item}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} sm={2}>
-                <InputLabel
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    fontWeight: 700,
-                  }}
-                >
-                  Author
-                </InputLabel>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <TextField
-                  required
-                  id="author"
-                  name="author"
-                  label="Author"
-                  fullWidth
-                  size="small"
-                  autoComplete="off"
-                  variant="outlined"
-                />
-              </Grid>
+
               <Grid item xs={12} sm={2}>
                 <InputLabel
                   sx={{
@@ -252,22 +327,62 @@ const WritingPage = () => {
                   Img Upload
                 </InputLabel>
               </Grid>
-              <Grid item xs={12} sm={4}>
-                <Button>
+              <Grid item xs={12} sm={10}>
+                <input type="file" onChange={handleFileChange} />
+              </Grid>
+              {/* <Grid item xs={12} sm={4}>
+                <Button onClick={}>
                   <UploadFileIcon />
                 </Button>
-              </Grid>
-              <Grid item xs={12} sm={6} />
-              <Grid item xs={12} sm={5} />
+              </Grid> */}
+              {/* <Grid item xs={12} sm={6} /> */}
+              {/* <Grid item xs={12} sm={5} /> */}
               <Grid item xs={12} sm={4}>
-                <Button variant="contained" sx={{ color: "#ff781f" }}>
-                  Save
+                <Button
+                  variant="contained"
+                  sx={{ color: "#ff781f" }}
+                  onClick={handleSubmitClick}
+                >
+                  Send
                 </Button>
               </Grid>
+              <Grid item xs={12} sm={5} />
               <Grid item xs={12} sm={5} />
             </Grid>
           </Box>
         </Paper>
+        {/* Popup Modal */}
+        <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+          <DialogTitle>Send Newsletter</DialogTitle>
+          <DialogContent>
+          <Box
+              sx={{
+                width: { xs: '100%', sm: 700 },
+                // height: { xs: 500, sm: 500 },
+                display: 'flex',
+                flexDirection:'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography variant="body1" paragraph>
+                Thank you for using newsletter platform. Please select the subscribers.To send the newsletter
+              </Typography>
+              <FormControlLabel
+                control={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />}
+                label="Send Newletter To All Subscribers"
+              />
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="error">
+              Close
+            </Button>
+            <Button onClick={subscriberSubmitClick} color="primary">
+              Submit
+            </Button>
+          </DialogActions>
+        </Dialog>
       </React.Fragment>
     </Container>
   );

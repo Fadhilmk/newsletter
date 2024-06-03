@@ -26,6 +26,7 @@
     "react-dom": "^18",
     "react-helmet-async": "^2.0.5",
     "react-router-dom": "^6.23.1",
+    "recharts": "^2.12.7",
     "simplebar-react": "^3.2.5"
   },
   "devDependencies": {
