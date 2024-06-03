@@ -13,12 +13,12 @@ const navConfig = [
   {
     title: 'dashboard',
     path: '/dashboard',
-    icon: icon('ic_analytics'),
+    icon: icon('ic_dashboard'),
   },
   {
     title: 'start writing',
     path: '/dashboard/writing',
-    icon: icon('ic_cart')
+    icon: icon('ic_writing')
   },
   {
     title: 'audience',
@@ -39,7 +39,7 @@ const navConfig = [
   {
     title: 'analytics',
     path: '/blog',
-    icon: icon('ic_blog'),
+    icon: icon('ic_analytics'),
     
     children: [
       {
@@ -51,7 +51,7 @@ const navConfig = [
   {
     title: 'logout',
     path: '/login',
-    icon: icon('ic_lock'),
+    icon: icon('ic_logout'),
   },
 ];
 
