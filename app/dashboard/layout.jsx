@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import Nav from '../../src/layout/nav';
 import Main from '../../src/layout/main';
 import Header from '../../src/layout/header';
-
+import './clickrate.css'
 const DashboardLayout = ({ children }) => {
   const [openNav, setOpenNav] = useState(false);
   const [isLayoutLoaded, setIsLayoutLoaded] = useState(false);
