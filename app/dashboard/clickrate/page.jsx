@@ -4,8 +4,7 @@ import React from 'react';
 const ClickRatePage = () => {
   return (
     <div>
-      <h1> ClickRate Page</h1>
-      {/* Add your user page content here */}
+      <div className='hey' ><h1>hello</h1></div>
     </div>
   );
 };

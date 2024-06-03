@@ -45,22 +45,22 @@ export default function UserTableRow({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            {/* <Avatar alt={name} src={avatarUrl} /> */}
             <Typography variant="subtitle2" noWrap>
               {name}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        {/* <TableCell>{company}</TableCell> */}
 
-        <TableCell>{role}</TableCell>
+        {/* <TableCell>{role}</TableCell> */}
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        {/* <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell> */}
 
-        <TableCell>
+        {/* <TableCell>
           <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
-        </TableCell>
+        </TableCell> */}
 
         <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
