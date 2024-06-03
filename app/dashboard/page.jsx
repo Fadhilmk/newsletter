@@ -1,6 +1,6 @@
 // app/dashboard/layout.jsx
 import React from 'react';
-import { AppView } from '../../src/overview/view';
+import { AppViegiw } from '../../src/overview/view';
 
 const DashboardHome = () => {
    return(

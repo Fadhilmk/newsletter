@@ -1,0 +1,76 @@
+/* app/dashboard/user/styles.css */
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  background-color: #f0f0f0; /* Adjust as needed */
+  box-sizing: border-box;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.left-side {
+  flex: 1;
+  padding: 20px;
+  background-color: #f9fafb;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+.right-side {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  max-width: 50%;
+  box-sizing: border-box;
+}
+
+.pre-style {
+  background-color: #e5e7eb;
+  padding: 20px;
+  border-radius: 4px;
+  height: 100%;
+  overflow: hidden; /* Ensure no scrolling */
+  box-sizing: border-box;
+}
+
+.iframe-style {
+  border-radius: 4px;
+  border: 2px solid #e5e7eb;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Media query for responsive design */
+@media (max-width: 768px) {
+  .content-container {
+    flex-direction: column;
+  }
+
+  .left-side,
+  .right-side {
+    max-width: 100%;
+    height: 50%;
+    padding: 10px;
+  }
+
+  .pre-style,
+  .iframe-style {
+    height: 100%;
+  }
+}

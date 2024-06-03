@@ -1,0 +1,97 @@
+.container {
+  width: 90%;
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 40px 50px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  line-height: 2.5;
+}
+
+.heading {
+  font-size: 24px;
+  font-family: 'Arial', sans-serif;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.file-input {
+  width: calc(100% - 20px);
+  padding: 10px;
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.cancel {
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.cancel:hover {
+  background-color: #ccc;
+}
+
+.import {
+  background-color: #fff;
+  color: #333;
+  font-size: 14px;
+  border: 1px solid #ccc;
+}
+
+.import:hover {
+  background-color: #ccc;
+}
+
+@media (max-width: 600px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+  
+  .heading {
+    font-size: 20px;
+  }
+  
+  .file-input {
+    font-size: 14px;
+  }
+  
+  .button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+}

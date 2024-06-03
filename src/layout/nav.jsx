@@ -17,6 +17,9 @@ import Menu from '@mui/material/Menu';
 //import { usePathname } from '../routes/hooks';
 //import { RouterLink } from '../routes/components';
 
+//import { signOut } from "firebase/auth";
+//import { auth } from "../firebase";
+
 import { useResponsive } from '../hooks/use-responsive';
 
 import { account } from '../_mock/account';

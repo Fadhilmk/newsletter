@@ -1,47 +1,50 @@
-"use client"
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
-import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import TableBody from '@mui/material/TableBody';
-import Typography from '@mui/material/Typography';
-import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
+import Card from "@mui/material/Card";
+import Stack from "@mui/material/Stack";
+import Table from "@mui/material/Table";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import TableBody from "@mui/material/TableBody";
+import Typography from "@mui/material/Typography";
+import TableContainer from "@mui/material/TableContainer";
+import TablePagination from "@mui/material/TablePagination";
 
-import { users } from '../../_mock/user';
+import { users } from "../../_mock/user";
 
-import Iconify from '../../components/iconify';
-import Scrollbar from '../../components/scrollbar';
+import Iconify from "../../components/iconify";
+import Scrollbar from "../../components/scrollbar";
 
-import TableNoData from '../table-no-data';
-import UserTableRow from '../user-table-row';
-import UserTableHead from '../user-table-head';
-import TableEmptyRows from '../table-empty-rows';
-import UserTableToolbar from '../user-table-toolbar';
-import { emptyRows, applyFilter, getComparator } from '../utils';
+import TableNoData from "../table-no-data";
+import UserTableRow from "../user-table-row";
+import UserTableHead from "../user-table-head";
+import TableEmptyRows from "../table-empty-rows";
+import UserTableToolbar from "../user-table-toolbar";
+import { emptyRows, applyFilter, getComparator } from "../utils";
 
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const router = useRouter();
+
   const [page, setPage] = useState(0);
 
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState("asc");
 
   const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState("name");
 
-  const [filterName, setFilterName] = useState('');
+  const [filterName, setFilterName] = useState("");
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleSort = (event, id) => {
-    const isAsc = orderBy === id && order === 'asc';
-    if (id !== '') {
-      setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === id && order === "asc";
+    if (id !== "") {
+      setOrder(isAsc ? "desc" : "asc");
       setOrderBy(id);
     }
   };
@@ -53,6 +56,10 @@ export default function UserPage() {
       return;
     }
     setSelected([]);
+  };
+
+  const handleImportSubscribers = () => {
+    router.push("./subscribers/import-subscribers")
   };
 
   const handleClick = (event, name) => {
@@ -97,10 +104,20 @@ export default function UserPage() {
 
   return (
     <Container>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={5}
+      >
         <Typography variant="h4">Subscribers</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+          onClick={handleImportSubscribers}
+        >
           New User
         </Button>
       </Stack>
@@ -113,7 +130,7 @@ export default function UserPage() {
         />
 
         <Scrollbar>
-          <TableContainer sx={{ overflow: 'unset' }}>
+          <TableContainer sx={{ overflow: "unset" }}>
             <Table sx={{ minWidth: 800 }}>
               <UserTableHead
                 order={order}
@@ -123,12 +140,12 @@ export default function UserPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
-                  { id: '' },
+                  { id: "name", label: "Name" },
+                  { id: "company", label: "Company" },
+                  { id: "role", label: "Role" },
+                  { id: "isVerified", label: "Verified", align: "center" },
+                  { id: "status", label: "Status" },
+                  { id: "" },
                 ]}
               />
               <TableBody>
