@@ -15,188 +15,197 @@
     justify-content: space-between;
     align-items: center;
     background-color: #f2f2f2;
-    padding: 1.4rem;
+    padding-inline: 1.4rem;
     flex-wrap: wrap;
     border-bottom: 2.5px solid black;
   }
   
-  .logo img {
-    /* height: 40px; */
+.logo img {
+  /* height: 40px; */
+}
+
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.navLinks a {
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  text-decoration: none;
+  padding: 0.7rem;
+  border-radius: 10px;
+}
+
+.navLinks a:hover{
+  background-color: rgb(253, 141, 80);
+}
+
+.navItem {
+  position: relative;
+  padding-block: 1.7rem;
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 60%;
+  left: 0;
+  background-color: #ffffff;
+  list-style: none;
+  padding: 1rem;
+  margin-top: 30px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.dropdownMenu li {
+  margin: 0;
+  width: 10rem;
+}
+
+.dropdownMenu a {
+  color: rgb(0, 0, 0);
+  padding: 0.5rem 1rem;
+  display: block;
+}
+
+.dropdown:hover .dropdownMenu {
+  display: block;
+}
+
+.buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.login, .freeTrial {
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  opacity: 0.6;
+}
+
+.freeTrial {
+  background-image: linear-gradient(to right, rgb(252, 113, 248), rgb(254, 196, 88)); /* Specify the direction and colors of the gradient */
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+.login:hover, .freeTrial:hover {
+  opacity: 1;
+}
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .navLinks {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-  }
-  
-  .navLinks a {
-    color: rgb(0, 0, 0);
-    text-decoration: none;
-    padding: 0.7rem;
-    border-radius: 10px;
-
-  }
-  .navLinks a:hover{
-    background-color: rgb(253, 141, 80);
-  }
-  
   .navItem {
     position: relative;
+    padding-block: 0.3rem;
   }
   
-  .dropdownMenu {
+  .navLinks {
     display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #ffffff;
-    list-style: none;
-    padding: 1rem;
-    margin-top: 30px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-  }
-  
-  .dropdownMenu li {
-    margin: 0;
-    width: 10rem;
-  }
-  
-  .dropdownMenu a {
-    color: rgb(0, 0, 0);
-    padding: 0.5rem 1rem;
-    display: block;
-  }
-  
-  .dropdown:hover .dropdownMenu {
-    display: block;
-  }
-  
-  .buttons {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .login, .freeTrial {
-    color: rgb(0, 0, 0);
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-weight: 600;
-    opacity: 0.6;
-  }
-  
-  .freeTrial {
-    background-image: linear-gradient(to right, rgb(252, 113, 248), rgb(254, 196, 88)); /* Specify the direction and colors of the gradient */
-    border-radius: 10px;
-    opacity: 0.8;
-  }
-  
-  .login:hover, .freeTrial:hover {
-    opacity: 1;
-  }
-  
-  .hamburger {
-    display: none;
-    cursor: pointer;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .navLinks {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      align-items: flex-start;
-      gap: 1rem;
-      margin: 1rem 0;
-    }
-  
-    .navLinks.show {
-      display: flex;
-    }
-    
-    .hamburgerBlock{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      width:100%;
-      padding: 10px;
-    }
-  
-    .hamburger {
-      display: block;
-    }
-  
-    .buttons {
-      width: 100%;
-      justify-content: flex-start;
-      gap: 1rem;
-    }
-  
-    .login, .freeTrial {
-      width: 100%;
-      text-align: center;
-    }
-  }
-  
-  
-/* Landing Page  */
-/* .containerLaningPage {
-    min-height: 100vh;
-    padding: 0 0.5rem;
-    display: flex;
     flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    gap: 1rem;
+    margin: 1rem 0;
     justify-content: center;
     align-items: center;
+  }
+
+  .navLinks.show {
+    display: flex;
+  }
+
+  .hamburgerBlock{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    padding: 10px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .buttons {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin: 5px;
+  }
+
+  .login, .freeTrial {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* Landing Page  */
+/* .containerLaningPage {
+  min-height: 100vh;
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 } */
 
 .section1 {
-    padding: 5rem 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-image: url('/section1.jpg');
-    /* height: 750px; */
-    background-size: cover; /* Ensures the image covers the entire container */
-    background-position: center; /* Centers the image */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    height: 100vh; /* Full viewport height, adjust as needed */
-    width: 100%; /* Full width, adjust as needed */
+  padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/section1.jpg');
+  /* height: 750px; */
+  background-size: cover; /* Ensures the image covers the entire container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  height: 100vh; /* Full viewport height, adjust as needed */
+  width: 100%; /* Full width, adjust as needed */
 }
 .title {
-    width: 80%;
-    text-align: center;
-    font-size: 3.5vw;
-    font-weight: 700;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  width: 80%;
+  text-align: center;
+  font-size: 3.5vw;
+  font-weight: 700;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
-  
+
 .section2 {
-    padding: 5rem 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 5px;
-    height: 750px;
-    background-image: linear-gradient(to right,rgb(254, 196, 88), rgb(252, 113, 248), rgb(254, 196, 88)); /* Specify the direction and colors of the gradient */
+  padding: 5rem 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  height: 750px;
+  background-image: linear-gradient(to right,rgb(254, 196, 88), rgb(252, 113, 248), rgb(254, 196, 88)); /* Specify the direction and colors of the gradient */
 }
-  
+
 @media (max-width: 1000px) {
-    .section1 {
-        height: 50vh; /* Adjust height for smaller screens */  
-    }
-    .section2 {
-        height: 50vh; /* Adjust height for smaller screens */  
-    }
+  .section1 {
+      height: 50vh; /* Adjust height for smaller screens */  
+  }
+  .section2 {
+      height: 50vh; /* Adjust height for smaller screens */  
+  }
 }
-  
