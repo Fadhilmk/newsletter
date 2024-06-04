@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import {useRouter} from "next/navigation";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -30,6 +31,7 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
 }));
 
 const SubscribersPage = () => {
+  const router = useRouter();
   const [openDialog, setOpenDialog] = useState(false);
   const [newSubscriberEmail, setNewSubscriberEmail] = useState('');
   const [newUsers, setNewUsers] = useState([]);
@@ -60,6 +62,10 @@ const SubscribersPage = () => {
     
   };
 
+  const handleImportSubscribers = () => {
+    router.push("./subscribers/import-subscribers")
+  };
+
   const validateEmail = (email) => {
     // Regular expression to validate email address
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -71,7 +77,7 @@ const SubscribersPage = () => {
         <Button variant="contained" color="secondary" sx={{ mr: 1 }} onClick={handleOpenDialog}>
           Add Subscriber
         </Button>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleImportSubscribers}>
           Import Subscriber
         </Button>
       </Box>
