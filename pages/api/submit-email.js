@@ -1,5 +1,5 @@
 // pages/api/submit-email.js
-import { db } from '../../../firebase';
+import { db } from '../../firebase';
 import { collection, addDoc } from 'firebase/firestore';
 
 export default async function handler(req, res) {

@@ -16,17 +16,7 @@ const ClickRatePage = () => {
           </div>
         </div>
       }
-      <div className="right-side">
-          <iframe
-            src="/form.html"
-            data-test-id="subscribe-form"
-            width="100%"
-            height="320"
-            frameBorder="0"
-            scrolling="no"
-            className="iframe-style"
-          ></iframe>
-        </div>
+      
     </div>
   );
 };
