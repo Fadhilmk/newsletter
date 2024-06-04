@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-
 export async function POST(req) {
     try {
         const body = await req.json();
@@ -10,15 +9,17 @@ export async function POST(req) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: "8590143232a@gmail.com",
-                pass: "8590143232"
+                user: "newletter.platform@gmail.com",
+                // add to envvvvvvv
+                pass: "romr ttcp lqba klky"
             }
         });
 
+        // Construct the email
         const mailOptions = {
-            from: "8590143232a@gmail.com",
-            to: 'hadhirasal22@gmail.com',
-            subject: 'Email Subject',
+            from: "newletter.platform@gmail.com",
+            to: 'newletter.platform@gmail.com',
+            subject: 'Test',
             html: `
                 <p>${paragraph}</p>
                 <p>Author: ${author}</p>
@@ -30,11 +31,16 @@ export async function POST(req) {
             `
         };
 
+        // Send the email
         await transporter.sendMail(mailOptions);
 
+        // Send success response
         return NextResponse.json({ success: true, message: 'Email sent successfully' });
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ success: false, message: 'Error sending email', error: error.message });
+        // Log the error
+        console.error('Error sending email:', error);
+
+        // Send error response without exposing the actual error message
+        return NextResponse.json({ success: false, message: 'Error sending email' });
     }
 }

@@ -1,5 +1,5 @@
 import { firestore } from "@/firebaseConfig";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
@@ -109,31 +109,32 @@ const emailHTML = `
 `;
 
 export async function POST(req) {
-
     try {
         const body = await req.json();
 
         const { author, buttonLink, buttonName, paragraph, imageURL, socialLinks } = body;
 
-        const userId = "C36ErsQJPCYbZxxxlPxk"
-        const userRef = doc(firestore, 'users', userId);
+        const userId = "1";
 
-        const subscribersSnapshot = await getDocs(collection(userRef, 'subscribers'));
+        const userRef = doc(firestore, "users", userId);
+
+        const subscribersQuery = query(collection(userRef, "subscribers"));
+
+        const subscribersSnapshot = await getDocs(subscribersQuery);
 
         if (subscribersSnapshot.empty) {
-            console.log('No subscribers found.');
-            return NextResponse.json({ success: true, message: 'No subscribers to send emails', success: false });
+            console.log("No subscribers found.");
+            return NextResponse.json({ success: false, message: "No subscribers to send emails" });
         }
-
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: "newsletter.platform@gmail.com",
-                // add to envvvvvvv
-                pass: "uckhxzqfhbgoxhwq"
+                user: "newletter.platform@gmail.com",
+                pass: "romr ttcp lqba klky"
             }
         });
+
 
         function replaceTemplatePlaceholders(html, data) {
             return html
@@ -151,13 +152,20 @@ export async function POST(req) {
             return socialLinks.map(link => `<a href="${link.url}" target="_blank">${link.name}</a>`).join('');
         }
 
-        const emailPromises = subscribersSnapshot.docs.map(subscriberDoc => {
+
+        const emailPromises = [];
+
+        subscribersSnapshot.forEach(subscriberDoc => {
             const subscriberData = subscriberDoc.data();
+            const subscriberMail = subscriberData.mail;
+
+            console.log("Your Email is :", subscriberMail)
+
             const mailOptions = {
-                from: "newsletter.platform@gmail.com",
-                to: subscriberData.email,
-                subject: 'Email Subject',
-                html: replaceTemplatePlaceholders(emailHTML, { author, paragraph, imageURL, buttonLink, buttonName, socialLinks })
+                from: "newletter.platform@gmail.com",
+                to: subscriberMail,
+                subject: "Email Subject",
+                html: replaceTemplatePlaceholders(emailHTML, { author, paragraph, imageURL, buttonLink, buttonName, socialLinks }),
             };
 
             return transporter.sendMail(mailOptions);
@@ -165,9 +173,9 @@ export async function POST(req) {
 
         await Promise.all(emailPromises);
 
-        return NextResponse.json({ success: true, message: 'Emails sent successfully' });
+        return NextResponse.json({ success: true, message: "Emails sent successfully" });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ success: false, message: 'Error sending emails', error: error.message });
+        return NextResponse.json({ success: false, message: "Error sending emails", error: error.message });
     }
 }
