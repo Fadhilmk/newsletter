@@ -1,9 +1,8 @@
 import { firestore } from "@/firebaseConfig";
-import { addDoc, collection } from "firebase/firestore";
-import { NextRequest, NextResponse } from "next/server";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-// HTML template for the email content
 const emailHTML = `
 <!DOCTYPE html>
 <html lang="en">
@@ -109,51 +108,66 @@ const emailHTML = `
 </html>
 `;
 
-
-
 export async function POST(req) {
+
     try {
         const body = await req.json();
 
-        const { author, buttonLink, buttonName, paragraph, imageURL, socialLinks, username } = body;
+        const { author, buttonLink, buttonName, paragraph, imageURL, socialLinks } = body;
 
-        await addDoc(collection(firestore, "users"), { username });
+        const userId = "C36ErsQJPCYbZxxxlPxk"
+        const userRef = doc(firestore, 'users', userId);
+
+        const subscribersSnapshot = await getDocs(collection(userRef, 'subscribers'));
+
+        if (subscribersSnapshot.empty) {
+            console.log('No subscribers found.');
+            return NextResponse.json({ success: true, message: 'No subscribers to send emails', success: false });
+        }
+
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: "newletter.platform@gmail.com",
-
-
-                // add to env marakanda
+                user: "newsletter.platform@gmail.com",
+                // add to envvvvvvv
                 pass: "uckhxzqfhbgoxhwq"
             }
         });
 
-        const mailOptions = {
-            from: "newsletter.platform@gmail.com",
-            to: 'hadhirasal22@gmail.com',
-            subject: 'Email Subject',
-            html: emailHTML
-                .replace('{{paragraph}}', paragraph)
-                .replace('{{author}}', author)
-                .replace('{{imageURL}}', imageURL)
-                .replace('{{buttonLink}}', buttonLink)
-                .replace('{{buttonName}}', buttonName)
-                .replace('{{#each socialLinks}}', getSocialLinksHTML(socialLinks))
-                .replace('{{/each}}', '')
-        };
+        function replaceTemplatePlaceholders(html, data) {
+            return html
+                .replace('{{paragraph}}', data.paragraph)
+                .replace('{{author}}', data.author)
+                .replace('{{imageURL}}', data.imageURL)
+                .replace('{{buttonLink}}', data.buttonLink)
+                .replace('{{buttonName}}', data.buttonName)
+                .replace('{{#each socialLinks}}', getSocialLinksHTML(data.socialLinks))
+                .replace('{{/each}}', '');
+        }
 
-        await transporter.sendMail(mailOptions);
 
-        return NextResponse.json({ success: true, message: 'Email sent successfully' });
+        function getSocialLinksHTML(socialLinks) {
+            return socialLinks.map(link => `<a href="${link.url}" target="_blank">${link.name}</a>`).join('');
+        }
+
+        const emailPromises = subscribersSnapshot.docs.map(subscriberDoc => {
+            const subscriberData = subscriberDoc.data();
+            const mailOptions = {
+                from: "newsletter.platform@gmail.com",
+                to: subscriberData.email,
+                subject: 'Email Subject',
+                html: replaceTemplatePlaceholders(emailHTML, { author, paragraph, imageURL, buttonLink, buttonName, socialLinks })
+            };
+
+            return transporter.sendMail(mailOptions);
+        });
+
+        await Promise.all(emailPromises);
+
+        return NextResponse.json({ success: true, message: 'Emails sent successfully' });
     } catch (error) {
         console.error(error);
-        return NextResponse.json({ success: false, message: 'Error sending email', error: error.message });
+        return NextResponse.json({ success: false, message: 'Error sending emails', error: error.message });
     }
-}
-
-// Helper function to generate HTML for social links
-function getSocialLinksHTML(socialLinks) {
-    return socialLinks.map(link => `<a href="${link.url}" target="_blank">${link.name}</a>`).join('');
 }
