@@ -23,7 +23,7 @@
   .logo img {
     /* height: 40px; */
   }
-  
+
   .navLinks {
     display: flex;
     list-style: none;
@@ -119,6 +119,14 @@
   
     .navLinks.show {
       display: flex;
+    }
+    
+    .hamburgerBlock{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      padding: 10px;
     }
   
     .hamburger {

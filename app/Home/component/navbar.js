@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
+  const router = useRouter()
   const [showNavbar, setShowNavbar] = useState(false);
 
   const handleShowNavbar = () => {
@@ -14,18 +16,27 @@ const NavBar = () => {
   const Hamburger = () => {
     return (
       <div onClick={handleShowNavbar} className={styles.hamburger}>
-        <img src="/menu.png" alt="hamburger" width={25} height={25} />
+        <img src="/more.png" alt="hamburger" width={25} height={25} />
       </div>
     );
   };
 
+  const signIn = () =>{
+    router.push('/signin')
+  }
+  const signUp = () =>{
+    router.push('/signup')
+  }
+
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>
-        {/* <img src="/logo.png" alt="Logo" /> */}
-        <p className={styles.newsLetter}>NEWSLETTER</p>
+      <div className={styles.hamburgerBlock}>
+        <div className={styles.logo}>
+          {/* <img src="/logo.png" alt="Logo" /> */}
+          <p className={styles.newsLetter}>NEWSLETTER</p>
+        </div>
+        <Hamburger />
       </div>
-      <Hamburger />
       <ul className={`${styles.navLinks} ${showNavbar ? styles.show : ""}`}>
         <li className={styles.navItem}>
           <Link href="/">Home</Link>
@@ -49,8 +60,8 @@ const NavBar = () => {
         </li>
       </ul>
       <div className={styles.buttons}>
-        <button className={styles.login}>Login</button>
-        <button className={styles.freeTrial}>Free Trial</button>
+        <button onClick={signIn} className={styles.login}>SignIn</button>
+        <button onClick={signUp} className={styles.freeTrial}>SignUp</button>
       </div>
     </nav>
   );
