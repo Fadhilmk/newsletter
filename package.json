@@ -19,6 +19,7 @@
     "@mui/material-nextjs": "^5.15.11",
     "date-fns": "^3.6.0",
     "exceljs": "^4.4.0",
+    "firebase": "^10.12.2",
     "next": "14.2.3",
     "numeral": "^2.0.6",
     "papaparse": "^5.4.1",
