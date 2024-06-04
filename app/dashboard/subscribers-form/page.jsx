@@ -33,6 +33,6 @@ const SubscribersFormPage = () => {
     </div>
     </div>
   );
-};
+}; 
 
 export default SubscribersFormPage;

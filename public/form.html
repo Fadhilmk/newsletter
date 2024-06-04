@@ -1,0 +1,37 @@
+<!-- form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Form</title>
+</head>
+<body>
+    <form id="emailForm">
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            try {
+                const response = await fetch('/api/submit-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                if (response.ok) {
+                    alert('Email submitted successfully!');
+                } else {
+                    alert('Failed to submit email.');
+                }
+            } catch (error) {
+                alert('Error submitting email: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
