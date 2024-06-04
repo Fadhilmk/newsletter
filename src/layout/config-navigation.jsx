@@ -52,6 +52,7 @@ const navConfig = [
     title: 'logout',
     path: '/signin',
     icon: icon('ic_logout'),
+    action: 'logout', 
   },
 ];
 

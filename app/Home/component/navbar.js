@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import { useRouter } from "next/navigation";
-
+import '../../click.css'
 const NavBar = () => {
   const router = useRouter()
   const [showNavbar, setShowNavbar] = useState(false);

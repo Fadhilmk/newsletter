@@ -5,7 +5,7 @@ import { auth, db} from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
-
+import '.././click.css'
 const SignUp = () => {
   const router = useRouter();
   const [username, setUsername] = useState("");

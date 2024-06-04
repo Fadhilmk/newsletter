@@ -1,160 +1,51 @@
-"use client"
+// // Nav.jsx
+"use client";
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
-import {styled, alpha } from '@mui/material/styles';
-import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-
-//import { usePathname } from '../routes/hooks';
-//import { RouterLink } from '../routes/components';
-
-//import { signOut } from "firebase/auth";
-//import { auth } from "../firebase";
-
+import Avatar from '@mui/material/Avatar';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Typography from '@mui/material/Typography';
+import { styled, alpha } from '@mui/material/styles';
+import { useAuth } from '../../context/AuthContext';
 import { useResponsive } from '../hooks/use-responsive';
-
-import { account } from '../_mock/account';
-
-
 import Scrollbar from '../components/scrollbar';
-
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
-
-// ----------------------------------------------------------------------
-
-export default function Nav({ openNav, onCloseNav }) {
-  // const pathname = usePathname();
-
-  const upLg = useResponsive('up', 'lg');
-
-  // useEffect(() => {
-  //   if (openNav) {
-  //     onCloseNav();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [pathname]);
-
-  const renderAccount = (
-    <Box
-      sx={{
-        my: 3,
-        mx: 2.5,
-        py: 2,
-        px: 2.5,
-        display: 'flex',
-        borderRadius: 1.5,
-        alignItems: 'center',
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
-      }}
-    >
-      <Avatar src={account.photoURL} alt="photoURL" /> 
-
-      <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
-        
-      </Box>
-    </Box>
-  );
-
-  const renderMenu = (
-    <Stack component="nav" spacing={1.5} sx={{ px: 2 }}>
-      {navConfig.map((item) => (
-        <NavItem key={item.title} item={item} />
-      ))}
-    </Stack>
-  );
-
-  
-
-  const renderContent = (
-    <Scrollbar
-      sx={{
-        height: 1,
-        '& .simplebar-content': {
-          height: 1,
-          display: 'flex',
-          flexDirection: 'column',
-        },
-      }}
-    >
-
-      {renderAccount}
-
-      {renderMenu}
-
-      <Box sx={{ flexGrow: 1 }} />
-
-    </Scrollbar>
-  );
-
-  
-
-  return (
-    <Box
-      sx={{
-        flexShrink: { lg: 0 },
-        width: { lg: NAV.WIDTH },
-      }}
-    >
-      {upLg ? (
-        <Box
-          sx={{
-            height: 1,
-            position: 'fixed',
-            width: NAV.WIDTH,
-            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
-          }}
-        >
-          {renderContent}
-        </Box>
-      ) : (
-        <Drawer
-          open={openNav}
-          onClose={onCloseNav}
-          PaperProps={{
-            sx: {
-              width: NAV.WIDTH,
-            },
-          }}
-        >
-          {renderContent}
-        </Drawer>
-      )}
-    </Box>
-  );
-}
-
-Nav.propTypes = {
-  openNav: PropTypes.bool,
-  onCloseNav: PropTypes.func,
-};
-
-// ----------------------------------------------------------------------
-
-
+import {account} from '../_mock/account'
+// NavItem component (nested inside Nav)
 function NavItem({ item }) {
-  //const pathname = usePathname();
-
-  //const active = item.path === pathname;
+  const { logout } = useAuth();  // Get the logout function from AuthContext
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event) => {
-  setAnchorEl(event.currentTarget);
+    setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
-  setAnchorEl(null);
+    setAnchorEl(null);
   };
-  console.log(anchorEl)
+
+  const handleLogout = async () => {
+    await logout();
+    window.location.href = '/signin';  // Redirect to signin page
+  };
+
+  const isLogout = item.action === 'logout';
+
+  const handleItemClick = async (event) => {
+    if (isLogout) {
+      await handleLogout();
+    } else {
+      setAnchorEl(event.currentTarget);
+    }
+  };
 
   const StyledMenu = styled((props) => (
     <Menu
@@ -201,8 +92,8 @@ function NavItem({ item }) {
     <>
       <ListItemButton
         component={!item.children ? 'a' : 'div'}
-        href={!item.children ? item.path : null}
-        onClick={item.children ? handleClick : null}
+        href={!item.children && !isLogout ? item.path : null}
+        onClick={item.children ? handleClick : isLogout ? handleItemClick : null}
         sx={{
           minHeight: 44,
           borderRadius: 0.75,
@@ -242,4 +133,93 @@ function NavItem({ item }) {
 
 NavItem.propTypes = {
   item: PropTypes.object,
+};
+
+// Main Nav component
+export default function Nav({ openNav, onCloseNav }) {
+  const upLg = useResponsive('up', 'lg');
+
+  const renderAccount = (
+    <Box
+      sx={{
+        my: 3,
+        mx: 2.5,
+        py: 2,
+        px: 2.5,
+        display: 'flex',
+        borderRadius: 1.5,
+        alignItems: 'center',
+        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+      }}
+    >
+      <Avatar src={account.photoURL} alt="photoURL" />
+      <Box sx={{ ml: 2 }}>
+        <Typography variant="subtitle2">{account.displayName}</Typography>
+      </Box>
+    </Box>
+  );
+
+  const renderMenu = (
+    <Stack component="nav" spacing={1.5} sx={{ px: 2 }}>
+      {navConfig.map((item) => (
+        <NavItem key={item.title} item={item} />
+      ))}
+    </Stack>
+  );
+
+  const renderContent = (
+    <Scrollbar
+      sx={{
+        height: 1,
+        '& .simplebar-content': {
+          height: 1,
+          display: 'flex',
+          flexDirection: 'column',
+        },
+      }}
+    >
+      {renderAccount}
+      {renderMenu}
+      <Box sx={{ flexGrow: 1 }} />
+    </Scrollbar>
+  );
+
+  return (
+    <Box
+      sx={{
+        flexShrink: { lg: 0 },
+        width: { lg: NAV.WIDTH },
+      }}
+    >
+      {upLg ? (
+        <Box
+          sx={{
+            height: 1,
+            position: 'fixed',
+            width: NAV.WIDTH,
+            borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          }}
+        >
+          {renderContent}
+        </Box>
+      ) : (
+        <Drawer
+          open={openNav}
+          onClose={onCloseNav}
+          PaperProps={{
+            sx: {
+              width: NAV.WIDTH,
+            },
+          }}
+        >
+          {renderContent}
+        </Drawer>
+      )}
+    </Box>
+  );
+}
+
+Nav.propTypes = {
+  openNav: PropTypes.bool,
+  onCloseNav: PropTypes.func,
 };
