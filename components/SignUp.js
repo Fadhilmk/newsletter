@@ -13,7 +13,7 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
-
+  
   const handleSignUp = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -26,9 +26,11 @@ const SignUp = () => {
         email,
         password
       );
+      const uid=userCredential.user.uid
       console.log(userCredential);
       await updateProfile(userCredential.user, { displayName: username });
       await addDoc(collection(db, "users"), {
+        uid,
         username,
         email
       });
