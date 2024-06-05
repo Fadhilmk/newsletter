@@ -12,14 +12,15 @@ import Avatar from '@mui/material/Avatar';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import Typography from '@mui/material/Typography';
 import { styled, alpha } from '@mui/material/styles';
-import { useAuth } from '../../context/AuthContext';
 import { useResponsive } from '../hooks/use-responsive';
+import { useAuth } from '../../context/AuthContext';
 import Scrollbar from '../components/scrollbar';
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
 import {account} from '../_mock/account'
 // NavItem component (nested inside Nav)
 function NavItem({ item }) {
+ 
   const { logout } = useAuth();  // Get the logout function from AuthContext
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -137,6 +138,7 @@ NavItem.propTypes = {
 
 // Main Nav component
 export default function Nav({ openNav, onCloseNav }) {
+  const { user } = useAuth();
   const upLg = useResponsive('up', 'lg');
 
   const renderAccount = (
@@ -154,7 +156,7 @@ export default function Nav({ openNav, onCloseNav }) {
     >
       <Avatar src={account.photoURL} alt="photoURL" />
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle2">{user ? user.displayName : 'Guest'}</Typography>
       </Box>
     </Box>
   );

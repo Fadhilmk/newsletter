@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {useRouter} from "next/navigation";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -10,8 +10,10 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import { doc, collection, addDoc, query,getDocs } from "firebase/firestore"// Firestore modules
+import { db } from "../../../firebase";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AuthProvider } from "@/context/AuthContext";
+import { useAuth } from "../../../context/AuthContext";
 import { styled, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 // const subscribers = [
 //   { email: "alonzo.kuhic@example.com" },
@@ -30,8 +32,9 @@ const ListItemStyled = styled(ListItem)(({ theme }) => ({
     padding: 0,
   },
 }));
-
+  
 const SubscribersPage = () => {
+  const { user } = useAuth();
   const router = useRouter();
   const [openDialog, setOpenDialog] = useState(false);
   const [newSubscriberEmail, setNewSubscriberEmail] = useState('');
@@ -46,22 +49,67 @@ const SubscribersPage = () => {
     setNewSubscriberEmail('');
   };
 
-  const handleAddSubscriber = () => {
+
+  useEffect(() => {
+    // Fetch subscriber data when component mounts
+    const fetchSubscribers = async () => {
+      try {
+        const userDocRef = doc(collection(db, "users"), user.uid);
+        const subscribersCollectionRef = collection(userDocRef, "subscribers");
+        const querySnapshot = await getDocs(subscribersCollectionRef);
+        const subscribers = [];
+        querySnapshot.forEach((doc) => {
+          subscribers.push({ id: doc.id, ...doc.data() });
+        });
+        setNewUsers(subscribers);
+        console.log(subscribers)
+      } catch (error) {
+        console.error("Error fetching subscribers:", error);
+      }
+    };
+
+    fetchSubscribers();
+  }, [user.uid]);
+  // const handleAddSubscriber = () => {
    
     
+  //   if (!validateEmail(newSubscriberEmail)) {
+  //     setEmailError(true);
+  //     return;
+  //   }
+  //   else{
+  //     console.log('New Subscriber Email:', newSubscriberEmail);
+  //     const newSubscriber = { email: newSubscriberEmail };
+  //     setNewUsers([...newUsers, newSubscriber]);
+  //     handleCloseDialog();
+  //   }
+   
+    
+  // };
+  const handleAddSubscriber = async () => {
     if (!validateEmail(newSubscriberEmail)) {
       setEmailError(true);
       return;
     }
-    else{
-      console.log('New Subscriber Email:', newSubscriberEmail);
+
+    try {
+      const userDocRef = doc(collection(db, "users"), user.uid);
+
+      const subscribersCollectionRef = query(collection(userDocRef, "subscribers"));
+
+      await addDoc(subscribersCollectionRef, { mail: newSubscriberEmail });
+
+      console.log("New Subscriber Email:", newSubscriberEmail);
+
       const newSubscriber = { email: newSubscriberEmail };
-      setNewUsers([...newUsers, newSubscriber]);
+      // setNewUsers([...newUsers, newSubscriber]);
+
       handleCloseDialog();
+    } catch (error) {
+      console.error("Error adding subscriber:", error);
     }
-   
-    
   };
+
 
   const handleImportSubscribers = () => {
     router.push("./subscribers/import-subscribers")
@@ -90,7 +138,7 @@ const SubscribersPage = () => {
           <ListItemStyled key={index} divider >
             <Checkbox />
 
-            <ListItemText primary={subscriber.email} />
+            <ListItemText primary={subscriber.mail} />
             <Box sx={{
               display: 'flex',
               justifyContent: 'flex-end',
@@ -136,3 +184,4 @@ export default SubscribersPage;
       <SubscriberView />
     </> */
 }
+

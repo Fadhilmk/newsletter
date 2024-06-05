@@ -3,9 +3,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Papa from 'papaparse';
 import ExcelJS from 'exceljs';
+import { doc, collection, addDoc, query } from "firebase/firestore";
+import {db} from '../../../../firebase';
+import { useAuth } from "../../../../context/AuthContext";
 import './styles.css';
 
 const ImportSubscribersForm = ({ onImport }) => {
+  const { user } = useAuth();
   const [file, setFile] = useState(null);
   const router = useRouter();
 
@@ -56,8 +60,18 @@ const ImportSubscribersForm = ({ onImport }) => {
           }
           return null;
         }).filter(email => email);
-  
-        console.log(emailAddresses);
+        emailAddresses.forEach(async email => {
+          try {
+            const userDocRef = doc(collection(db, "users"), user.uid);
+            const subscribersCollectionRef = collection(userDocRef, "subscribers");
+            await addDoc(subscribersCollectionRef, { mail: email });
+            console.log(emailAddresses);
+          } catch (error) {
+            console.error("Error adding subscriber to Firestore:", error);
+            // Handle error as needed
+          }
+        });
+        
         alert("Subscribers imported successfully!");
         router.back();
       } catch (error) {
