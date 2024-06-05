@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { AuthProvider } from "@/context/AuthContext";
 import { styled, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from "@mui/material";
 // const subscribers = [
 //   { email: "alonzo.kuhic@example.com" },

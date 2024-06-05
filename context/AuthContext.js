@@ -26,8 +26,25 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   };
 
+  const storeUserData = ({ uid, email, username }) => {
+    localStorage.setItem('uid', uid);
+    localStorage.setItem('email', email);
+    localStorage.setItem('username', username);
+    
+    console.log("Stored uid:", uid);
+    console.log("Stored email:", email);
+    console.log("Stored username:", username);
+  };
+
+  const getUserData = () => {
+    const uid = localStorage.getItem('uid');
+    const email = localStorage.getItem('email');
+    const username = localStorage.getItem('username');
+    return { uid, email, username };
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, logout }}>
+    <AuthContext.Provider value={{ user, loading, logout, storeUserData }}>
       {children}
     </AuthContext.Provider>
   );

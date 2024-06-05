@@ -5,9 +5,12 @@ import { auth, db} from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { collection, addDoc } from "firebase/firestore";
+import { useAuth } from '../context/AuthContext';
 import '../app/click.css'
+
 const SignUp = () => {
   const router = useRouter();
+  const { storeUserData } = useAuth();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,7 +30,7 @@ const SignUp = () => {
         password
       );
       const uid=userCredential.user.uid
-      console.log(userCredential);
+      storeUserData({ uid, email, username });
       await updateProfile(userCredential.user, { displayName: username });
       await addDoc(collection(db, "users"), {
         uid,
