@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { addSubscriberToUser } from './addSubscribers.js';
+import { addSubscriberToUser, getSubscribers } from './addSubscribers.js';
 
 export async function POST(req, context) {
 
@@ -12,4 +12,15 @@ export async function POST(req, context) {
         console.error(error);
         return NextResponse.json({ success: false });
     }
+}
+
+export async function GET(req, context) {
+    const { params } = context;
+    let subs = [];
+    const subscriberDetails = await getSubscribers(params.userId);
+    subscriberDetails.forEach(doc => {
+        const data = doc.data();
+        subs = subs.concat(data);
+    })
+    return NextResponse.json(subs);
 }

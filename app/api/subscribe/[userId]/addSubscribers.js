@@ -1,5 +1,5 @@
 // import necessary functions
-import { doc, collection, addDoc } from "firebase/firestore";
+import { doc, collection, addDoc, query, getDocs } from "firebase/firestore";
 import { firestore } from './../../../../firebaseConfig.js';
 
 // Function to add a subcollection
@@ -18,3 +18,11 @@ export const addSubscriberToUser = async (userId, subscriberData) => {
     console.error("Error adding subscribers", error);
   }
 };
+
+export const getSubscribers = async(userId) =>{
+
+  const userDocRef = doc(firestore, "users", userId);
+  const subscribersCollectionRef = query(collection(userDocRef, "subscribers"));
+  const subscriberDetails = await getDocs(subscribersCollectionRef);
+  return subscriberDetails;
+}
