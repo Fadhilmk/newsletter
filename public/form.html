@@ -1,0 +1,88 @@
+<!-- public/form.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Subscribe to our Newsletter</h1>
+        <p>Stay updated with our latest news and offers. Enter your email below to subscribe:</p>
+        <form id="emailForm">
+            <input type="email" id="email" name="email" placeholder="Enter your email" required />
+            <button type="submit">Subscribe</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            try {
+                const response = await fetch('/api/submit-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                if (response.ok) {
+                    alert('Email submitted successfully!');
+                } else {
+                    alert('Failed to submit email.');
+                }
+            } catch (error) {
+                alert('Error submitting email: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
