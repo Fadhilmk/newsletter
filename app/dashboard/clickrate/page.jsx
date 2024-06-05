@@ -9,9 +9,7 @@ const ClickRatePage = () => {
         /* Add your user page content here */
         <div className="box-container">
           <div className="box">
-           <Image  className="click_image"src="/assets/images/click_image.png" alt="" 
-            width={100}
-            height={100}/>
+           <img  className="click_image" src="/assets/images/click_image.png" alt=""/>
             <div className="text">
               <h2 className="count">1.35m</h2>
               <h2 className="title">Total Clicks</h2>
@@ -19,7 +17,6 @@ const ClickRatePage = () => {
           </div>
         </div>
       }
-      
     </div>
   );
 };
