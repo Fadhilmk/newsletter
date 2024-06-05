@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, ".next/types/app/dashboard/subscribers/import-subscribers/page.js"  ],
   "exclude": [
     "node_modules"
   ]
