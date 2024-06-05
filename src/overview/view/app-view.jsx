@@ -1,9 +1,12 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import AppWidgetSummary from "../app-widget-summary";
-import Image from 'next/image';
+import Image from "next/image";
+import { doc, collection, getDocs } from "firebase/firestore"; // Firestore modules
+import { db } from "../../../firebase";
+import { useAuth } from "../../../context/AuthContext";
 import {
   LineChart,
   Line,
@@ -26,13 +29,29 @@ const data = [
 ];
 
 export default function AppView() {
+  const { user } = useAuth();
+  const [totalEmails, setTotalEmails] = useState(0);
+  useEffect(() => {
+    const fetchTotalEmails = async () => {
+      try {
+        const emailsCollectionRef = collection(db, "users", user.uid, "subscribers");
+        const querySnapshot = await getDocs(emailsCollectionRef);
+        setTotalEmails(querySnapshot.size);
+      } catch (error) {
+        console.error("Error fetching total emails:", error);
+      }
+    };
+
+    
+    fetchTotalEmails();
+  }, [user.uid]);
   return (
-    <Container maxWidth="xl" >
+    <Container maxWidth="xl">
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Total Subscribers"
-            total={714000}
+            total={totalEmails}
             color="success"
             icon={
               <img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />
@@ -43,7 +62,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Total Clicks"
-            total={1352831}
+            total={0}
             color="info"
             icon={
               <img alt="icon" src="/assets/icons/glass/icons8-click-72.png" />
@@ -54,7 +73,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Total Mails Send"
-            total={1723315}
+            total={0}
             color="warning"
             icon={
               <img alt="icon" src="/assets/icons/glass/icons8-mail-70.png" />
@@ -65,7 +84,7 @@ export default function AppView() {
           <TotalSubscribersGraph />
         </Grid> */}
       </Grid>
-      <Grid style={{ marginTop: '20px' }}>
+      <Grid style={{ marginTop: "20px" }}>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart
             data={data}
