@@ -14,7 +14,10 @@ const SignIn = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+
+      const res = await signInWithEmailAndPassword(auth, email, password);
+      console.log(res)
+
       router.push("/dashboard");
     } catch (error) {
       setError(error.message);
