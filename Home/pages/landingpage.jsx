@@ -5,12 +5,6 @@ import '../../click.css'
 function LandingPage() {
   return (
     <div>
-      <div>
-        <title>My Landing Page</title>
-        <meta name="description" content="Welcome to my Next.js landing page" />
-        <link rel="icon" href="/favicon.ico" />
-      </div>
-
       <NavBar />
 
       <section className={styles.section1}>
