@@ -22,7 +22,6 @@ export default function RootLayout(props) {
           <AppRouterCacheProvider options={{ enableCssLayer: true }}>
             <ThemeProvider theme={theme}>
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-
               {props.children}
             </ThemeProvider>
           </AppRouterCacheProvider>

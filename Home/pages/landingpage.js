@@ -27,4 +27,3 @@ function LandingPage() {
 
 export default LandingPage
 
-{/* <section class="Home_section1__fO6Pw"><p class="Home_title__Xxnx1">WELCOME TO THE NEWSLETTER PLATFORM</p><p class="Home_title__Xxnx1">NEWSLETTER PLATFORM BUILT FOR GROWTH.</p></section> */}
