@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import Image from 'next/image';
 import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
@@ -50,7 +50,7 @@ export default function LanguagePopover() {
           }),
         }}
       >
-        <img src={LANGS[0].icon} alt={LANGS[0].label} />
+        <Image src={LANGS[0].icon} alt={LANGS[0].label} />
       </IconButton>
 
       <Popover

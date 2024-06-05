@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 import { useRouter } from "next/navigation";
+import Image from 'next/image';
 import '../../click.css'
 const NavBar = () => {
   const router = useRouter()
@@ -16,7 +17,7 @@ const NavBar = () => {
   const Hamburger = () => {
     return (
       <div onClick={handleShowNavbar} className={styles.hamburger}>
-        <img src="/more.png" alt="hamburger" width={25} height={25} />
+        <Image src="/more.png" alt="hamburger" width={25} height={25} />
       </div>
     );
   };

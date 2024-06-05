@@ -22,9 +22,10 @@ const SvgColor = forwardRef(({ src, sx, ...other }, ref) => (
     {...other}
   />
 ));
+SvgColor.displayName = 'SvgColor';
 
 SvgColor.propTypes = {
-  src: PropTypes.string,
+  src: PropTypes.string.isRequired,
   sx: PropTypes.object,
 };
 

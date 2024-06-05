@@ -41,6 +41,7 @@ const Scrollbar = forwardRef(({ children, sx, ...other }, ref) => {
     </StyledRootScrollbar>
   );
 });
+Scrollbar.displayName = 'Scrollbar';
 
 Scrollbar.propTypes = {
   children: PropTypes.node,

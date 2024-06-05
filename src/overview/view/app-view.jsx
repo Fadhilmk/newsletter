@@ -3,6 +3,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import AppWidgetSummary from "../app-widget-summary";
+import Image from 'next/image';
 import {
   LineChart,
   Line,
