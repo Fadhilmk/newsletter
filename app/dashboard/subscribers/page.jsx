@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import { doc, collection, addDoc, query,getDocs } from "firebase/firestore"// Firestore modules
+import { doc, collection, addDoc, query,getDocs,deleteDoc } from "firebase/firestore"// Firestore modules
 import { db } from "../../../firebase";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useAuth } from "../../../context/AuthContext";
@@ -109,7 +109,19 @@ const SubscribersPage = () => {
       console.error("Error adding subscriber:", error);
     }
   };
+  const handleDeleteSubscriber = async (id) => {
+    try {
+      const userDocRef = doc(collection(db, "users"), user.uid);
+      const subscriberDocRef = doc(userDocRef, "subscribers", id);
 
+      await deleteDoc(subscriberDocRef);
+
+      // Remove the deleted subscriber from the state
+      setNewUsers(newUsers.filter(subscriber => subscriber.id !== id));
+    } catch (error) {
+      console.error("Error deleting subscriber:", error);
+    }
+  };
 
   const handleImportSubscribers = () => {
     router.push("./subscribers/import-subscribers")
@@ -146,7 +158,7 @@ const SubscribersPage = () => {
               width: '100%',
               flexWrap: 'wrap',
               }}>
-              <IconButton aria-label="delete" sx={{ color: 'red' }}>
+              <IconButton aria-label="delete" sx={{ color: 'red' }} onClick={() => handleDeleteSubscriber(subscriber.id)}>
                 <DeleteIcon />
               </IconButton>
               
