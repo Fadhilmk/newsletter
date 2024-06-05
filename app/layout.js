@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "News Letter",
-  description: "Stay updated with the latest news, trends, and insights in the world of email marketing. Join our newsletter to receive expert tips, strategies, and exclusive offers to enhance your email marketing campaigns.",
+  description: "Transform your communication strategy with our innovative newsletter platform. Seamlessly craft and distribute bulk newsletters, connecting with your subscribers like never before. Elevate your outreach efforts now!",
   keywords: "email marketing, newsletter, marketing tips, marketing strategies, email campaigns, digital marketing, marketing insights, marketing trends, exclusive offers",
 };
 
@@ -21,7 +21,7 @@ export default function RootLayout(props) {
       <Head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
-        <link rel="icon" href="/public/favicon1.png" />
+        <link rel="icon" href="/favicon1.png" />
       </Head>
       <body className={inter.className}>
         <AuthProvider>
