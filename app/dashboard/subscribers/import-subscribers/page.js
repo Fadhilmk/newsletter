@@ -50,6 +50,14 @@ const ImportSubscribersForm = ({ onImport }) => {
       try {
         const jsonData = await handleFileRead(file);
         console.log(jsonData); // Replace this with the desired onImport call or further processing
+        const emailAddresses = jsonData.map(item => {
+          if (Array.isArray(item) && item.length === 2 && typeof item[1] === 'object' && item[1].text) {
+            return item[1].text;
+          }
+          return null;
+        }).filter(email => email);
+  
+        console.log(emailAddresses);
         alert("Subscribers imported successfully!");
         router.back();
       } catch (error) {
