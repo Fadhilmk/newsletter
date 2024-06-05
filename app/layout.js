@@ -21,7 +21,7 @@ export default function RootLayout(props) {
       <Head>
         <title>{metadata.title}</title>
         <meta name="description" content={metadata.description} />
-        <link rel="icon" href="/favicon1.png" />
+        <link rel="icon" href="favicon.ico" />
       </Head>
       <body className={inter.className}>
         <AuthProvider>
