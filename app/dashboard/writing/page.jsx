@@ -1,5 +1,5 @@
-// app/dashboard/user/page.jsx
 "use client";
+
 import * as React from "react";
 import { useState } from "react";
 import Grid from "@mui/material/Grid";
@@ -16,28 +16,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
-const addImage = async (file) => {
-  const formData = new FormData();
-  formData.append("image", file);
-
-  try {
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to upload image");
-    }
-
-    const data = await response.json();
-    console.log("Image added successfully", data);
-  } catch (error) {
-    console.error("Error uploading image:", error.message);
-  }
-};
+import { useAuth } from "../../../context/AuthContext";
+import axios from "axios"; // Import axios
 
 const WritingPage = () => {
+  const { user } = useAuth();
   const [selectedFile, setSelectedFile] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
@@ -53,14 +36,6 @@ const WritingPage = () => {
     setSelectedFile(event.target.files[0]);
   };
 
-  const handleUploadClick = () => {
-    if (selectedFile) {
-      addImage(selectedFile);
-    } else {
-      alert("Please select a file first");
-    }
-  };
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -69,45 +44,51 @@ const WritingPage = () => {
     });
   };
 
-  const submitFormData = async (formData) => {
+  const handleSubmitClick = async () => {
     try {
-      const response = await fetch("/api/submit", {
-        method: "POST",
+      // Create FormData object
+      const formDataToSend = new FormData();
+      // Append form data fields
+      Object.keys(formData).forEach((key) =>
+        formDataToSend.append(key, formData[key])
+      );
+      // Append selected file
+      if (selectedFile) {
+        formDataToSend.append("image", selectedFile);
+      }
+      
+      formDataToSend.append("uid", user.uid);
+
+      // Send form data
+      const response = await axios.post("/api/mail/bulk", formDataToSend, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
+      if (response.status >= 200 && response.status < 300) {
+        console.log("Form data submitted successfully", response.data);
+        setOpen(true);
+      } else {
         throw new Error("Failed to submit form data");
       }
-
-      const data = await response.json();
-      console.log("Form data submitted successfully", data);
     } catch (error) {
       console.error("Error submitting form data:", error.message);
     }
   };
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleSubmitClick = () => {
-    submitFormData(formData);
-    if (selectedFile) {
-      addImage(selectedFile);
-    } 
-    setOpen(true);
-    console.log(formData);
-    console.log(selectedFile);
-  };
+
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
 
-  const subscriberSubmitClick = ()=>{
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  }
+  const subscriberSubmitClick = () => {
+    // Logic for subscriber submission
+  };
+
   return (
     <Container>
       <React.Fragment>
@@ -355,21 +336,27 @@ const WritingPage = () => {
         <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
           <DialogTitle>Send Newsletter</DialogTitle>
           <DialogContent>
-          <Box
+            <Box
               sx={{
-                width: { xs: '100%', sm: 700 },
+                width: { xs: "100%", sm: 700 },
                 // height: { xs: 500, sm: 500 },
-                display: 'flex',
-                flexDirection:'column',
-                justifyContent: 'center',
-                alignItems: 'center',
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
               <Typography variant="body1" paragraph>
-                Thank you for using newsletter platform. Please select the subscribers.To send the newsletter
+                Thank you for using newsletter platform. Please select the
+                subscribers.To send the newsletter
               </Typography>
               <FormControlLabel
-                control={<Checkbox checked={isChecked} onChange={handleCheckboxChange} />}
+                control={
+                  <Checkbox
+                    checked={isChecked}
+                    onChange={handleCheckboxChange}
+                  />
+                }
                 label="Send Newletter To All Subscribers"
               />
             </Box>

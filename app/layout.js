@@ -17,15 +17,15 @@ export const metadata = {
 export default function RootLayout(props) {
   return (
     <html lang="en">
-      <body>
-      <AuthProvider>
-        <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ThemeProvider theme={theme}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            
-            {props.children}
-          </ThemeProvider>
-        </AppRouterCacheProvider>
+      <body className={inter.className}>
+        <AuthProvider>
+          <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+            <ThemeProvider theme={theme}>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+
+              {props.children}
+            </ThemeProvider>
+          </AppRouterCacheProvider>
         </AuthProvider>
       </body>
     </html>

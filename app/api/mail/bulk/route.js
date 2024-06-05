@@ -1,4 +1,4 @@
-import { firestore } from "@/firebaseConfig";
+import { firestore } from "../../../../firebaseConfig";
 import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
@@ -110,12 +110,18 @@ const emailHTML = `
 
 export async function POST(req) {
     try {
-        const body = await req.json();
+        const formData = await req.formData();
 
-        const { author, buttonLink, buttonName, paragraph, imageURL, socialLinks } = body;
+        const author = formData.get('author');
+        const title = formData.get('title');
+        const buttonLink = formData.get('buttonURL');
+        const buttonName = formData.get('buttonContent');
+        const paragraph = formData.get('content');
+        const imageURL = formData.get('imageURL');
+        const socialLinks = formData.getAll('socialLinks');
+        const uid = formData.get('uid');
 
-        const userId = "1";
-
+        const userId = uid;
         const userRef = doc(firestore, "users", userId);
 
         const subscribersQuery = query(collection(userRef, "subscribers"));
@@ -155,7 +161,7 @@ export async function POST(req) {
 
         const emailPromises = [];
 
-        subscribersSnapshot.forEach(subscriberDoc => {
+        subscribersSnapshot?.forEach(subscriberDoc => {
             const subscriberData = subscriberDoc.data();
             const subscriberMail = subscriberData.mail;
 
@@ -164,7 +170,7 @@ export async function POST(req) {
             const mailOptions = {
                 from: "newletter.platform@gmail.com",
                 to: subscriberMail,
-                subject: "Email Subject",
+                subject: title,
                 html: replaceTemplatePlaceholders(emailHTML, { author, paragraph, imageURL, buttonLink, buttonName, socialLinks }),
             };
 
