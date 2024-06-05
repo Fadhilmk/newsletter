@@ -4,7 +4,9 @@ import { useState } from "react";
 import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import '../app/click.css'
+import '../click.css'
+
+
 const SignIn = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
