@@ -198,7 +198,7 @@ const SignIn = () => {
             Sign In
           </Button>
           <Typography align="center" variant="body2">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/signup" variant="body2">
               Create One
             </Link>
