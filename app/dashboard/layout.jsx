@@ -5,10 +5,13 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Nav from "../../src/layout/nav";
 import Main from "../../src/layout/main";
+import CircularProgress from '@mui/material/CircularProgress';
 import ProtectedRote from "../../components/ProtectedRoute";
 import Header from "../../src/layout/header";
 import "./clickrate.css";
+
 import ProtectedRoute from "../../components/ProtectedRoute";
+
 const DashboardLayout = ({ children }) => {
   const [openNav, setOpenNav] = useState(false);
   const [isLayoutLoaded, setIsLayoutLoaded] = useState(false);
@@ -23,7 +26,12 @@ const DashboardLayout = ({ children }) => {
   }, []);
 
   if (!isLayoutLoaded) {
-    return <div>Loading layout...</div>; // Replace with a better loading indicator if needed
+    return(
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "100%", height: "100vh" }}>
+        <CircularProgress />
+      </div>
+    );
+     // Replace with a better loading indicator if needed
   }
 
   return (

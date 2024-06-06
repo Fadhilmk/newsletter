@@ -105,7 +105,7 @@ const ImportSubscribersForm = ({ onImport }) => {
 
         <div className="actions">
           <button type="button" className="button cancel" onClick={handleCancel}>Cancel</button>
-          <button type="submit" className="button import">Import Subscribers</button>
+          <button type="submit" className="button import" onClick={handleCancel}>Import Subscribers</button>
         </div>
       </form>
     </div>

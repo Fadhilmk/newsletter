@@ -397,7 +397,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import { useAuth } from "../../../context/AuthContext";
 import { db, storage } from "../../../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc,getDoc} from "firebase/firestore";
 import axios from "axios"; // Import axios
 
 const WritingPage = () => {
@@ -461,6 +461,20 @@ const WritingPage = () => {
         setOpen(true);
       } else {
         throw new Error("Failed to submit form data");
+      }
+
+      const userRef = doc(db, "users", user.uid);
+
+      // Check if the document exists
+      const userDoc = await getDoc(userRef);
+      if (userDoc.exists()) {
+        await updateDoc(userRef, {
+          totalMailsSend: (userDoc.data().totalMailsSend || 0) + 1,
+        });
+      } else {
+        await setDoc(userRef, {
+          totalMailsSend: 1,
+        });
       }
     } catch (error) {
       console.error("Error submitting form data:", error.message);

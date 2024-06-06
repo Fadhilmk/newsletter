@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import Grid from "@mui/material/Unstable_Grid2";
 import AppWidgetSummary from "../app-widget-summary";
 import Image from "next/image";
-import { doc, collection, getDocs } from "firebase/firestore"; // Firestore modules
+import {  doc, collection, getDocs, getDoc  } from "firebase/firestore"; // Firestore modules
 import { db } from "../../../firebase";
 import { useAuth } from "../../../context/AuthContext";
 import {
@@ -31,6 +31,7 @@ const data = [
 export default function AppView() {
   const { user } = useAuth();
   const [totalEmails, setTotalEmails] = useState(0);
+  const [totalMailsSend, setTotalMailsSend] = useState(0);
   useEffect(() => {
     const fetchTotalEmails = async () => {
       try {
@@ -42,8 +43,23 @@ export default function AppView() {
       }
     };
 
-    
+    const fetchTotalMailsSend = async () => {
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const docSnapshot = await getDoc(userRef);
+        if (docSnapshot.exists()) {
+          const userData = docSnapshot.data();
+          setTotalMailsSend(userData.totalMailsSend || 0);
+        }
+      } catch (error) {
+        console.error("Error fetching total mails send:", error);
+      }
+    };
+
+
     fetchTotalEmails();
+    fetchTotalMailsSend();
+ ;
   }, [user.uid]);
   return (
     <Container maxWidth="xl">
@@ -73,7 +89,7 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={4}>
           <AppWidgetSummary
             title="Total Mails Send"
-            total={0}
+            total={totalMailsSend}
             color="warning"
             icon={
               <img alt="icon" src="/assets/icons/glass/icons8-mail-70.png" />
