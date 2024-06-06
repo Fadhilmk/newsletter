@@ -6,9 +6,8 @@ import Box from "@mui/material/Box";
 import Nav from "../../src/layout/nav";
 import Main from "../../src/layout/main";
 import CircularProgress from '@mui/material/CircularProgress';
-import ProtectedRote from "../../components/ProtectedRoute";
 import Header from "../../src/layout/header";
-import "./clickrate.css";
+
 
 import ProtectedRoute from "../../components/ProtectedRoute";
 
