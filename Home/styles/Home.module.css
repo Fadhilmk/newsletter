@@ -222,7 +222,7 @@
 
 @media (max-width: 1000px) {
   .section1 {
-       height: auto; 
+       height: 50vh
   } 
   .section2 {
       height: 50vh; /* Adjust height for smaller screens */  
