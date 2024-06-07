@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from '../styles/Home.module.css';
 import NavBar from '../component/navbar';
-import '../../click.css'
 function LandingPage() {
   return (
     <div>

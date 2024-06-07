@@ -2,10 +2,9 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import styles from '../styles/Home.module.css';
 import { useRouter } from "next/navigation";
-import Image from 'next/image';
-import '../../click.css'
+import styles from '../styles/Home.module.css';
+
 const NavBar = () => {
   const router = useRouter()
   const [showNavbar, setShowNavbar] = useState(false);
@@ -17,7 +16,7 @@ const NavBar = () => {
   const Hamburger = () => {
     return (
       <div onClick={handleShowNavbar} className={styles.hamburger}>
-        <Image src="/more.png" alt="hamburger" width={25} height={25} />
+        <img src="/more.png" alt="hamburger" width={25} height={25} />
       </div>
     );
   };
@@ -38,28 +37,35 @@ const NavBar = () => {
         </div>
         <Hamburger />
       </div>
-      <ul className={`${styles.navLinks} ${showNavbar ? styles.show : ""}`}>
-        <li className={styles.navItem}>
-          <Link href="/">Home</Link>
-        </li>
-        <li className={`${styles.navItem} ${styles.dropdown}`}>
-          <Link href="/features">Features</Link>
-          <ul className={styles.dropdownMenu}>
-            <li><Link href="/features/feature1">Feature 1</Link></li>
-            <li><Link href="/features/feature2">Feature 2</Link></li>
-            <li><Link href="/features/feature3">Feature 3</Link></li>
-          </ul>
-        </li>
-        <li className={styles.navItem}>
-          <Link href="/network">Ad Network</Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link href="/resources">Resources</Link>
-        </li>
-        <li className={styles.navItem}>
-          <Link href="/company">Company</Link>
-        </li>
-      </ul>
+      <div className={styles.centeredlist}>
+        <ul className={`${styles.navLinks} ${showNavbar ? styles.show : ""}`}>
+          <li className={styles.navItem}>
+            <Link href="/">Home</Link>
+          </li>
+          <li className={`${styles.navItem} ${styles.dropdown}`}>
+            <div className={styles.inline}>
+              <Link href="/features">Features</Link>
+              <img src="/down.jpg" alt="Logo" width={20} height={20}/>
+            </div>
+              <ul className={styles.dropdownMenu}>
+                <div className={styles.dropdownContainer}>
+                  <li><Link href="/features/feature1">Feature 1</Link></li>
+                  <li><Link href="/features/feature2">Feature 2</Link></li>
+                  <li><Link href="/features/feature3">Feature 3</Link></li>
+                </div>
+              </ul>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/network">Ad Network</Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/resources">Resources</Link>
+          </li>
+          <li className={styles.navItem}>
+            <Link href="/company">Company</Link>
+          </li>
+        </ul>
+      </div>
       <div className={styles.buttons}>
         <button onClick={signIn} className={styles.login}>SignIn</button>
         <button onClick={signUp} className={styles.freeTrial}>SignUp</button>

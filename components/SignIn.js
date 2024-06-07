@@ -199,7 +199,7 @@ const SignIn = () => {
           </Button>
           <Typography align="center" variant="body2">
             Don&apos;t have an account?{" "}
-            <Link href="/signup" variant="body2">
+            <Link href="/signup" variant="body2" underline="none">
               Create One
             </Link>
           </Typography>

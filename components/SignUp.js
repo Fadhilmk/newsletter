@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 
 import { useState } from "react";
 import { auth, db } from "../firebase";
@@ -155,6 +155,164 @@ const SignUp = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+export default SignUp; */
+
+
+
+
+"use client";
+
+import { useState } from "react";
+import { auth, db } from "../firebase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { collection, addDoc } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Link,
+  Box,
+  CssBaseline,
+} from "@mui/material";
+
+const SignUp = () => {
+  const router = useRouter();
+  const { storeUserData } = useAuth();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const uid = userCredential.user.uid;
+      storeUserData({ uid, email, username });
+      await updateProfile(userCredential.user, { displayName: username });
+      await addDoc(collection(db, "users"), {
+        uid,
+        username,
+        email,
+      });
+
+      router.push("/signin");
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+          border: "1px solid rgba(0, 0, 0, 0.1)",
+          borderRadius: "8px",
+          padding: "24px",
+        }}
+      >
+        <Typography component="h1" variant="h5">
+          News Letter
+        </Typography>
+        <Typography component="h2" variant="subtitle1" color="textSecondary">
+          Create a new account
+        </Typography>
+        <form onSubmit={handleSignUp} noValidate>
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            id="uesrname"
+            label="Username"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            type="email"
+            id="email"
+            label="Email Address"
+            name="username"
+            autoComplete="username"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            type="password"
+            id="password"
+            label="Password"
+            name="password"
+            autoComplete="password"
+            autoFocus
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            type="password"
+            id="confirm-password"
+            label="Password"
+            name="password"
+            autoComplete="password"
+            autoFocus
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          {error && (
+            <Typography variant="body2" color="error" align="center">
+              {error}
+            </Typography>
+          )}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+            color="primary"
+          >
+            Sign Up
+          </Button>
+          <Typography align="center" variant="body2">
+            Already have an account?{" "}
+            <Link href="/signin" variant="body2" underline="none">
+              Sign In
+            </Link>
+          </Typography>
+        </form>
+      </Box>
+    </Container>
   );
 };
 
