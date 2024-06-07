@@ -8,7 +8,6 @@ import Main from "../../src/layout/main";
 import CircularProgress from '@mui/material/CircularProgress';
 import Header from "../../src/layout/header";
 
-
 import ProtectedRoute from "../../components/ProtectedRoute";
 
 const DashboardLayout = ({ children }) => {

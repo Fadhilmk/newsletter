@@ -1,4 +1,5 @@
 /* src/styles/Home.module.css */
+
 .newsLetter{
   font-family: 'Courier New', Courier, monospace;
   font-weight: 800;
@@ -192,10 +193,10 @@
   justify-content: center;
   align-items: center;
   background-image: url('/section1.jpg');
-  background-size: cover; /* Ensures the image covers the entire container */
-  background-position: center; /* Centers the image */
+  background-size:cover ; /* Ensures the image covers the entire container */
+  /* background-position: center; */
   background-repeat: no-repeat; /* Prevents the image from repeating */
-  height: 100vh; /* Full viewport height, adjust as needed */
+  height: 65vh; /* Full viewport height, adjust as needed */
   width: 100%; /* Full width, adjust as needed */
 }
 .title {
@@ -204,6 +205,7 @@
   font-size: 3.5vw;
   font-weight: 700;
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 0;
 }
 
 .section2 {
@@ -220,8 +222,8 @@
 
 @media (max-width: 1000px) {
   .section1 {
-      height: 50vh; /* Adjust height for smaller screens */  
-  }
+       height: auto; 
+  } 
   .section2 {
       height: 50vh; /* Adjust height for smaller screens */  
   }
