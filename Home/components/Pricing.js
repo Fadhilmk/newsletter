@@ -25,33 +25,33 @@ const tiers = [
     buttonText: 'Sign up for free',
     buttonVariant: 'outlined',
   },
-  {
-    title: 'Professional',
-    subheader: 'Recommended',
-    price: '15',
-    description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
-      'Dedicated team',
-      'Best deals',
-    ],
-    buttonText: 'Start now',
-    buttonVariant: 'contained',
-  },
-  {
-    title: 'Enterprise',
-    price: '30',
-    description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
-    ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined',
-  },
+  // {
+  //   title: 'Professional',
+  //   subheader: 'Recommended',
+  //   price: '15',
+  //   description: [
+  //     '20 users included',
+  //     '10 GB of storage',
+  //     'Help center access',
+  //     'Priority email support',
+  //     'Dedicated team',
+  //     'Best deals',
+  //   ],
+  //   buttonText: 'Start now',
+  //   buttonVariant: 'contained',
+  // },
+  // {
+  //   title: 'Enterprise',
+  //   price: '30',
+  //   description: [
+  //     '50 users included',
+  //     '30 GB of storage',
+  //     'Help center access',
+  //     'Phone & email support',
+  //   ],
+  //   buttonText: 'Contact us',
+  //   buttonVariant: 'outlined',
+  // },
 ];
 
 export default function Pricing() {
@@ -99,11 +99,11 @@ export default function Pricing() {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 4,
-                border: tier.title === 'Professional' ? '1px solid' : undefined,
+                border: tier.title === 'Free' ? '1px solid' : undefined,
                 borderColor:
-                  tier.title === 'Professional' ? 'primary.main' : undefined,
+                  tier.title === 'Free' ? 'primary.main' : undefined,
                 background:
-                  tier.title === 'Professional'
+                  tier.title === 'Free'
                     ? 'linear-gradient(#033363, #021F3B)'
                     : undefined,
               }}
@@ -115,13 +115,13 @@ export default function Pricing() {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    color: tier.title === 'Professional' ? 'grey.100' : '',
+                    color: tier.title === 'Free' ? 'grey.100' : '',
                   }}
                 >
                   <Typography component="h3" variant="h6">
                     {tier.title}
                   </Typography>
-                  {tier.title === 'Professional' && (
+                  {tier.title === 'Free' && (
                     <Chip
                       icon={<AutoAwesomeIcon />}
                       label={tier.subheader}
@@ -144,7 +144,7 @@ export default function Pricing() {
                   sx={{
                     display: 'flex',
                     alignItems: 'baseline',
-                    color: tier.title === 'Professional' ? 'grey.50' : undefined,
+                    color: tier.title === 'Free' ? 'grey.50' : undefined,
                   }}
                 >
                   <Typography component="h3" variant="h2">
@@ -175,7 +175,7 @@ export default function Pricing() {
                       sx={{
                         width: 20,
                         color:
-                          tier.title === 'Professional'
+                          tier.title === 'Free'
                             ? 'primary.light'
                             : 'primary.main',
                       }}
@@ -185,7 +185,7 @@ export default function Pricing() {
                       variant="subtitle2"
                       sx={{
                         color:
-                          tier.title === 'Professional' ? 'grey.200' : undefined,
+                          tier.title === 'Free' ? 'grey.200' : undefined,
                       }}
                     >
                       {line}
@@ -198,8 +198,8 @@ export default function Pricing() {
                   fullWidth
                   variant={tier.buttonVariant}
                   component="a"
-                  href="/material-ui/getting-started/templates/checkout/"
-                  target="_blank"
+                  href="/signup"
+                  // target="_blank"
                 >
                   {tier.buttonText}
                 </Button>

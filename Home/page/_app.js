@@ -83,8 +83,6 @@ function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
         <Box sx={{ bgcolor: 'background.default' }}>
           <Features />
           <Divider />
-          <Testimonials />
-          <Divider />
           <Highlights />
           <Divider />
           <Pricing />
