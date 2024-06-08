@@ -22,8 +22,6 @@ const navConfig = [
   },
   {
     title: 'audience',
-    // path: 'dashboard/audience',
-    // icon: icon('ic_cart'),
     icon: icon('ic_user'),
     children: [
       {
