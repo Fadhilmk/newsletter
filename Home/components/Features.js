@@ -20,7 +20,7 @@ const items = [
     icon: <ViewQuiltRoundedIcon />,
     title: 'Dashboard',
     description:
-      'This item could provide a snapshot of the most important metrics or data points related to the product.',
+      'Our intuitive user dashboard provides a comprehensive overview of your email marketing activities. Manage your campaigns, track performance metrics, and monitor subscriber growth all in one place. Stay informed with real-time analytics and gain insights to optimize your email marketing strategy.',
     imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
     imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
   },
@@ -28,15 +28,39 @@ const items = [
     icon: <EdgesensorHighRoundedIcon />,
     title: 'Mobile integration',
     description:
-      'This item could provide information about the mobile app version of the product.',
+      'Ensure your emails look great on any device. Our platform offers full mobile integration, providing a seamless experience whether your subscribers are checking emails on their desktop, tablet, or smartphone. Our responsive email templates automatically adjust to fit any screen size, enhancing readability and engagement on mobile devices.',
     imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
     imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
   },
   {
     icon: <DevicesRoundedIcon />,
-    title: 'Available on all platforms',
+    title: 'Add Subscribers',
     description:
-      'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
+      'Easily grow your subscriber list by adding new contacts manually or through simple import methods. Keep your audience engaged by expanding your reach and ensuring your emails land in the right inboxes.',
+    imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
+    imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
+  },
+  {
+    icon: <DevicesRoundedIcon />,
+    title: 'Advanced Analytics',
+    description:
+      'Gain deeper insights into your email campaigns with our advanced analytics tools. Track open rates, click-through rates, bounce rates, and more. Use this data to refine your strategy and improve your results.',
+    imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
+    imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
+  },
+  {
+    icon: <DevicesRoundedIcon />,
+    title: 'Unlimited Email Sending',
+    description:
+      'Reach out to your audience without any restrictions. Our platform allows you to send an unlimited number of emails, ensuring your messages always get through. Whether you&apos;re running a small campaign or a large-scale email blast, we&apos; ve got you covered',
+    imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
+    imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
+  },
+  {
+    icon: <DevicesRoundedIcon />,
+    title: 'Mail Templates',
+    description:
+      'Create beautiful, responsive emails with our extensive library of customizable mail templates. No design skills? No problem! Our drag-and-drop editor makes it easy to craft professional-looking emails that will captivate your audience and drive engagement.',
     imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
     imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
   },
@@ -52,7 +76,7 @@ export default function Features() {
   const selectedFeature = items[selectedItemIndex];
 
   return (
-    <Container id="features" sx={{ py: { xs: 8, sm: 16 } }}>
+    <Container id="features" sx={{ pb: { xs: 8, sm: 16 },pt: { xs: 3, sm: 0 } }}>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           <div>
