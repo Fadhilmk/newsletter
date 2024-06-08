@@ -202,7 +202,8 @@ export default function Footer() {
           </IconButton>
           <IconButton
             color="inherit"
-            href=""
+            href="https://www.instagram.com/fadhileyy?igsh=dnc0cTBtbXFjZGxh"
+            target='_blank'
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
           >
