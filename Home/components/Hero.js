@@ -28,7 +28,7 @@ export default function Hero() {
           flexDirection: 'column',
           alignItems: 'center',
           pt: { xs: 14, sm: 20 },
-          pb: { xs: 0, sm: 6 },
+          pb: { xs: 0, sm: 0 },
         }}
       >
         <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '70%' } }}>
@@ -44,7 +44,6 @@ export default function Hero() {
                 xs: '2rem',  // Small devices
                 sm: '3rem',  // Medium devices
                 md: '4rem',  // Large devices
-                lg: '5rem',  // Extra large devices
               },
             }}
           >
@@ -58,7 +57,6 @@ export default function Hero() {
                   xs: '1.5rem', // Small devices
                   sm: '2.5rem', // Medium devices
                   md: '3.5rem', // Large devices
-                  lg: '4.5rem', // Extra large devices
                 },
                 color: (theme) =>
                   theme.palette.mode === 'light' ? 'primary.main' : 'primary.light',

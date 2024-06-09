@@ -9,8 +9,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 import FacebookIcon from '@mui/icons-material/GitHub';
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/X';
+import Instagram from '@mui/icons-material/Instagram';
+
 
 const logoStyle = {
   width: '140px',
@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
       {'Copyright © '}
-      <Link href="https://mui.com/">Sitemark&nbsp;</Link>
+      <Link href="/">Newsletter&nbsp;</Link>
       {new Date().getFullYear()}
     </Typography>
   );
@@ -194,7 +194,7 @@ export default function Footer() {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/mui"
+            href=""
             aria-label="GitHub"
             sx={{ alignSelf: 'center' }}
           >
@@ -202,19 +202,12 @@ export default function Footer() {
           </IconButton>
           <IconButton
             color="inherit"
-            href="https://twitter.com/MaterialUI"
-            aria-label="X"
-            sx={{ alignSelf: 'center' }}
-          >
-            <TwitterIcon />
-          </IconButton>
-          <IconButton
-            color="inherit"
-            href="https://www.linkedin.com/company/mui/"
+            href="https://www.instagram.com/fadhileyy?igsh=dnc0cTBtbXFjZGxh"
+            target='_blank'
             aria-label="LinkedIn"
             sx={{ alignSelf: 'center' }}
           >
-            <LinkedInIcon />
+            <Instagram />
           </IconButton>
         </Stack>
       </Box>

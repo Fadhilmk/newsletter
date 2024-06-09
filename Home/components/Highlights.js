@@ -15,39 +15,39 @@ import ThumbUpAltRoundedIcon from '@mui/icons-material/ThumbUpAltRounded';
 const items = [
   {
     icon: <SettingsSuggestRoundedIcon />,
-    title: 'Adaptable performance',
+    title: 'Segmentation',
     description:
-      'Our product effortlessly adjusts to your needs, boosting efficiency and simplifying your tasks.',
-  },
-  {
-    icon: <ConstructionRoundedIcon />,
-    title: 'Built to last',
-    description:
-      'Experience unmatched durability that goes above and beyond with lasting investment.',
-  },
-  {
-    icon: <ThumbUpAltRoundedIcon />,
-    title: 'Great user experience',
-    description:
-      'Integrate our product into your routine with an intuitive and easy-to-use interface.',
-  },
-  {
-    icon: <AutoFixHighRoundedIcon />,
-    title: 'Innovative functionality',
-    description:
-      'Stay ahead with features that set new standards, addressing your evolving needs better than the rest.',
-  },
-  {
-    icon: <SupportAgentRoundedIcon />,
-    title: 'Reliable support',
-    description:
-      'Count on our responsive customer support, offering assistance that goes beyond the purchase.',
+      'Target your audience more effectively with powerful segmentation features. Create dynamic segments based on user behavior, preferences, and demographics. Send personalized content that resonates with each segment, boosting your engagement and conversion rates.',
   },
   {
     icon: <QueryStatsRoundedIcon />,
-    title: 'Precision in every detail',
+    title: 'Automation',
     description:
-      'Enjoy a meticulously crafted product where small touches make a significant impact on your overall experience.',
+      'Save time and increase efficiency with our robust automation tools. Set up automated workflows for welcome emails, follow-ups, and more. Automate repetitive tasks and focus on what matters most – growing your busin',
+  },
+  {
+    icon: <AutoFixHighRoundedIcon />,
+    title: 'A/B Testing',
+    description:
+      'Optimize your email campaigns with A/B testing. Experiment with different subject lines, content, and send times to determine what resonates best with your audience. Make data-driven decisions to enhance your email marketing efforts.',
+  },
+  {
+    icon: <ThumbUpAltRoundedIcon />,
+    title: 'Deliverability',
+    description:
+      'Ensure your emails reach their intended recipients with our high deliverability rates. Our platform uses industry-best practices and partnerships with major ISPs to keep your emails out of the spam folder and in front of your audience.',
+  },
+  {
+    icon: <ConstructionRoundedIcon />,
+    title: 'Compliance',
+    description:
+      'Stay compliant with all major email regulations, including GDPR and CAN-SPAM. Our platform provides the tools and guidance you need to manage subscriptions, handle opt-outs, and maintain a clean mailing list.',
+  },
+  {
+    icon: <SupportAgentRoundedIcon />,
+    title: 'Customer Support',
+    description:
+      'Experience top-notch customer support from our dedicated team of email marketing experts. Whether you need help setting up your account, creating campaigns, or troubleshooting issues, we’re here to assist you every step of the way.',
   },
 ];
 
@@ -80,11 +80,11 @@ export default function Highlights() {
           <Typography component="h2" variant="h4">
             Highlights
           </Typography>
-          <Typography variant="body1" sx={{ color: 'grey.400' }}>
+          {/* <Typography variant="body1" sx={{ color: 'grey.400' }}>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
           Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
           when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-          </Typography>
+          </Typography> */}
         </Box>
         <Grid container spacing={2.5}>
           {items.map((item, index) => (
