@@ -88,9 +88,9 @@ export default function Features() {
               color="text.secondary"
               sx={{ mb: { xs: 2, sm: 4 } }}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-              Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-              when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+             Discover the powerful tools and capabilities designed to elevate your email marketing efforts. 
+             Our platform provides a suite of features that streamline your campaign management, enhance subscriber engagement,
+             and offer insightful analytics to refine your strategies. Explore our comprehensive set of features that cater to all your email marketing needs.
             </Typography>
           </div>
           <Grid container item gap={1} sx={{ display: { xs: 'auto', sm: 'none' } }}>

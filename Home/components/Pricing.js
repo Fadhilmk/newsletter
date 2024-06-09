@@ -78,10 +78,8 @@ export default function Pricing() {
           Pricing
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          Quickly build an effective pricing table for your potential customers with
-          this layout. <br />
-          It&apos;s built with default Material UI components with little
-          customization.
+          Our Free Plan, priced at $0 per month, offers a robust set of features designed to meet your basic needs. <br />
+          Experience the benefits of our Free Plan and take the first step in enhancing your efforts today
         </Typography>
       </Box>
       <Grid container spacing={3} alignItems="center" justifyContent="center">
